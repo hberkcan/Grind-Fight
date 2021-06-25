@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML xmlns="UnityEngine.UIElements">
+    <VisualElement class="stretch">
+        <VisualElement class="header">
+            <VisualElement name="header-bg-left" class="header-bg-container">
+                <Button name="btn-dev-guide" text="Developer Guidelines"
+                        tooltip="Open developer guidelines document in browser."/>
+            </VisualElement>
+            <VisualElement name="header-bg-right" class="header-bg-container">
+                <Button name="btn-refresh" text="Refresh"/>
+<!--                <Label name="lbl-manager-version" text="Version: 0.1"/>-->
+            </VisualElement>
+        </VisualElement>
+
+        <ListView name="lst-view-packages" class="lst-view-packages"/>
+        
+        <VisualElement name="footer" class="footer">
+            <Button name="btn-install-selected" text="Install Selected"/>    
+        </VisualElement>
+    </VisualElement>
+</UXML>

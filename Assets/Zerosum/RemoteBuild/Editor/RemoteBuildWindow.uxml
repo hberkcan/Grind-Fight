@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML xmlns="UnityEngine.UIElements">
+    <VisualElement class="stretch">
+        <VisualElement class="header">
+            <VisualElement name="header-bg-left" class="header-bg-container">
+                <Label name="lbl-git-info"/>
+            </VisualElement>
+            <VisualElement name="header-bg-right" class="header-bg-container">
+                <Button name="btn-build" text="Request Build" tooltip="Request a build from the Remote Build server."/>
+                <!--                <Label name="lbl-manager-version" text="Version: 0.1"/>-->
+            </VisualElement>
+        </VisualElement>
+
+        <ScrollView mode="Vertical" show-horizontal-scroller="false" class="scroll-history" name="scroll-history"/>
+
+        <!--        <ListView name="lst-view-builds" class="lst-view-builds"/>-->
+
+        <!--        <VisualElement name="footer" class="footer">-->
+        <!--            <Button name="btn-install-selected" text="Install Selected"/>-->
+        <!--        </VisualElement>-->
+        
+    </VisualElement>
+</UXML>

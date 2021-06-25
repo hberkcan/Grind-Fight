@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML xmlns="UnityEngine.UIElements">
+    <VisualElement class="history-item-root" name="history-item-root">
+        <Label name="lbl-branch" picking-mode="Ignore"/>
+        <Label name="lbl-method" picking-mode="Ignore"/>
+        <Label name="lbl-start" picking-mode="Ignore"/>
+        <Label name="lbl-end" picking-mode="Ignore"/>
+        <Label name="lbl-duration" picking-mode="Ignore"/>
+        <Label name="lbl-state" picking-mode="Ignore"/>
+        <Label name="lbl-current-op" picking-mode="Ignore"/>
+        <Button name="btn-view-logs" text="View Log"/>
+    </VisualElement>
+</UXML>

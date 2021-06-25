@@ -1,0 +1,108 @@
+.stretch {
+    flex-grow: 1;
+}
+
+.header {
+    width: auto;
+    height: 42px;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.header-bg-container {
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: center;
+    padding: 0 6px 0;
+}
+
+#header-bg-left {
+}
+
+#header-bg-right {
+    flex-direction: row-reverse;
+}
+
+#btn-update-manager {
+    width: 76px;
+}
+
+.footer {
+    flex-direction: row-reverse;
+    height: 40px;
+    padding: 6px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 12px;
+    justify-content: center;
+}
+
+
+.header-bg-container > Button {
+    flex-grow: 0;
+}
+
+
+.lst-view-packages {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.list-item-row {
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 8px 0;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.list-item-row:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+
+.list-item-active {
+    background-color: rgba(120, 100, 200, 0.2);
+}
+
+.list-item-active:hover {
+    background-color: rgba(120, 100, 200, 0.2);
+}
+
+.list-item-row > #left {
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.list-item-row > #right {
+    flex-direction: row-reverse;
+    flex-grow: 1;
+    align-items: center;
+}
+
+#lbl-name {
+    flex-grow: 1;
+}
+
+.list-item-img-state {
+    flex-grow: 0;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    margin-left: 16px;
+}
+
+
+.list-item-lbl-version {
+    flex-grow: 0;
+    width: 144px;
+    -unity-text-align: middle-right;
+}

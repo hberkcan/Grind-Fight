@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML xmlns="UnityEngine.UIElements">
+    <VisualElement class="list-item-row">
+        <VisualElement name="left">
+            <Label name="lbl-name"/>
+        </VisualElement>
+
+        <VisualElement name="right">
+            <Image name="img-state" class="list-item-img-state"/>
+            <Label name="lbl-version" class="list-item-lbl-version"/>
+        </VisualElement>
+    </VisualElement>
+</UXML>

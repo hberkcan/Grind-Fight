@@ -1,0 +1,71 @@
+.stretch {
+    flex-grow: 1;
+}
+
+
+.field-build-method {
+    min-width: 84px;
+    max-width: 84px;
+}
+
+.history-item-root {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.03);
+    margin: 3px 4px;
+    border-width: 0.5px;
+    border-radius: 16px;
+    border-color: rgba(0, 0, 0, 0.6);
+}
+
+.history-item-root:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.history-item-root>Button {
+    align-self: flex-end;
+}
+
+.build-success {
+    background-color: rgba(10, 255, 80, 0.12);
+}
+
+.build-success:hover {
+    background-color: rgba(10, 255, 80, 0.2);
+}
+
+.build-failure {
+    background-color: rgba(255, 10, 80, 0.12);
+}
+.build-failure:hover {
+    background-color: rgba(255, 10, 80, 0.2);
+}
+
+.header {
+    width: auto;
+    min-height: 42px;
+    max-height: 42px;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.header-bg-container {
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: center;
+    padding: 0 6px 0;
+}
+
+#header-bg-left {
+}
+
+#header-bg-right {
+    flex-direction: row-reverse;
+}
+
+
+.header-bg-container > Button {
+    flex-grow: 0;
+}
