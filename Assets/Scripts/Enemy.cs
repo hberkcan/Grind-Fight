@@ -41,7 +41,8 @@ public class Enemy : Entity
 
             if (_fighting)
             {
-                unit.healthBar.SetActive(_fighting);
+                //unit.healthBar.SetActive(_fighting);
+                StartCoroutine(GameManage.instance.UIPopper(unit.healthBar, true, 0.3f));
             }
         }
     }

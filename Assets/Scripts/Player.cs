@@ -46,7 +46,8 @@ public class Player : Entity
             if (_fighting)
             {
                 GameManage.instance.Fight(this, hit.transform.GetComponent<Enemy>());
-                unit.healthBar.SetActive(true);
+                //unit.healthBar.SetActive(true);
+                StartCoroutine(GameManage.instance.UIPopper(unit.healthBar, true, 0.3f));
             }
         }
     }

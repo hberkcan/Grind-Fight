@@ -31,8 +31,12 @@ public abstract class Entity : MonoBehaviour
         }
 
         unit.damage = minDamage + (unit.level * unit.level) / 10f;
-        unit.transform.localScale += new Vector3(0.03f, 0.03f, 0.03f);
 
+        if(unit.level != maxLevel)
+        {
+            unit.transform.localScale += new Vector3(0.04f, 0.04f, 0.04f);
+        }
+        
         unit.levelUI.gameObject.SetActive(true);
         unit.levelUI.text = "Level " + unit.level.ToString();
 

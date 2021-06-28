@@ -42,7 +42,7 @@ public class PlatformHandler : MonoBehaviour
     {
         for (var i = triggers.Count - 1; i > -1; i--)
         {
-            if (triggers[i] == null)
+            if (triggers[i] == null || !triggers[i].enabled)
             {
                 triggers.RemoveAt(i);
                 triggerCount--;

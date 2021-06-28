@@ -66,9 +66,9 @@ public class EnemyAI : MonoBehaviour
         }
         else if (currentEnemy == null && GameManage.instance.enemyList.Count > 0 && LevelManage.instance.gameOn)
         {
-            float distance = Mathf.Abs(GameManage.instance.enemyList[GameManage.instance.enemyList.Count - 1].transform.position.z - GameManage.instance.enemySpawnPoint.z);
+            float distance1 = Mathf.Abs(GameManage.instance.enemyList[GameManage.instance.enemyList.Count - 1].transform.position.z - GameManage.instance.enemySpawnPoint.z);
 
-            if (distance >= 12f)
+            if (distance1 >= 12f)
             {
                 currentEnemy = SpawnEnemy();
 
@@ -104,7 +104,12 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(trainDelay);
         state = State.trainingStarted;
         yield return new WaitForSeconds(trainTime);
-        state = State.trainingEnded;
-        yield return new WaitForSeconds(currentEnemy.jumpDuration);
+
+        float distance2 = Mathf.Abs(GameManage.instance.playerList[GameManage.instance.playerList.Count - 1].transform.position.z - GameManage.instance.enemySpawnPoint.z);
+        if(distance2 >= 16f)
+        {
+            state = State.trainingEnded;
+            yield return new WaitForSeconds(currentEnemy.jumpDuration);
+        }
     }
 }

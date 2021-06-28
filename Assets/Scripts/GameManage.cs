@@ -22,9 +22,15 @@ public class GameManage : MonoBehaviour
     float tempTime;
     float spawnRate = 0.2f;
 
+    bool hasEnteredTraining;
+
     public Material red;
     public Material blue;
     public Material white;
+
+    float rate = 1f;
+    Coroutine rateCoroutine;
+    Coroutine hapticCoroutine;
 
     private void Awake()
     {
@@ -34,10 +40,25 @@ public class GameManage : MonoBehaviour
     void Start()
     {
         //currentPlayer = SpawnPlayer();
+        hasEnteredTraining = false;
     }
 
     void Update()
     {
+        if (currentPlayer == null && playerList.Count == 0 && LevelManage.instance.gameOn)
+        {
+            currentPlayer = SpawnPlayer();
+        }
+        else if (currentPlayer == null && playerList.Count > 0)
+        {
+            float distance1 = Mathf.Abs(playerList[playerList.Count - 1].transform.position.z - playerSpawnPoint.z);
+
+            if (distance1 >= 12f)
+            {
+                currentPlayer = SpawnPlayer();
+            }
+        }
+
         if (currentPlayer && LevelManage.instance.gameOn)
         {
             float distance2 = Mathf.Abs(enemyList[0].transform.position.z - playerSpawnPoint.z);
@@ -46,13 +67,22 @@ public class GameManage : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
+                    hasEnteredTraining = true;
                     currentPlayer.TrainingEnter(currentPlayer.animator);
 
-                    MMVibrationManager.ContinuousHaptic(0.4f, 0.8f, 10f);
+                    hapticCoroutine = StartCoroutine(HapticCoroutine());
                 }
 
                 if (Input.GetMouseButton(0))
                 {
+                    if(hasEnteredTraining == false)
+                    {
+                        hasEnteredTraining = true;
+                        currentPlayer.TrainingEnter(currentPlayer.animator);
+
+                        hapticCoroutine = StartCoroutine(HapticCoroutine());
+                    }
+
                     if (tempTime > 0)
                     {
                         tempTime -= Time.deltaTime;
@@ -64,8 +94,9 @@ public class GameManage : MonoBehaviour
                     }
                 }
 
-                if (Input.GetMouseButtonUp(0) && distance2 >= 12f)
+                if (Input.GetMouseButtonUp(0) && distance2 >= 16f)
                 {
+                    hasEnteredTraining = false;
                     currentPlayer.TrainingExit(currentPlayer.unit, currentPlayer.animator);
                     currentPlayer.isTraining = false;
 
@@ -73,24 +104,39 @@ public class GameManage : MonoBehaviour
                     //StartCoroutine(SpawnPlayerCoroutine());
                     currentPlayer = null;
 
-                    MMVibrationManager.StopContinuousHaptic();
+                    StopCoroutine(hapticCoroutine);
+                    StopCoroutine(rateCoroutine);
+                    rate = 1f;
                 }
             }
         }
-        
-        if(currentPlayer == null && playerList.Count == 0 && LevelManage.instance.gameOn)
-        {
-            currentPlayer = SpawnPlayer();
-        }
-        else if(currentPlayer == null && playerList.Count > 0)
-        {
-            float distance1 = Mathf.Abs(playerList[playerList.Count - 1].transform.position.z - playerSpawnPoint.z);
 
-            if (distance1 >= 12f)
-            {
-                currentPlayer = SpawnPlayer();
-            }
+        if (!LevelManage.instance.gameOn && hapticCoroutine != null && rateCoroutine != null)
+        {
+            StopCoroutine(hapticCoroutine);
+            StopCoroutine(rateCoroutine);
+            rate = 1f;
         }
+    }
+
+    IEnumerator HapticCoroutine()
+    {
+        rateCoroutine = StartCoroutine(HapticRate());
+        yield return new WaitForSeconds(1.8f);
+        StopCoroutine(rateCoroutine);
+
+        if(rate > 0.6f)
+            rate -= 0.33f;
+
+        hapticCoroutine = StartCoroutine(HapticCoroutine());
+    }
+
+    IEnumerator HapticRate()
+    {
+        MMVibrationManager.Haptic(HapticTypes.LightImpact);
+        Debug.Log(rate);
+        yield return new WaitForSeconds(rate);
+        rateCoroutine = StartCoroutine(HapticRate());
     }
 
     Player SpawnPlayer()
@@ -146,7 +192,9 @@ public class GameManage : MonoBehaviour
         if (enemy == null)
             yield break;
 
-        player.transform.GetChild(3).gameObject.SetActive(true);
+        GameObject fightEffect = player.transform.GetChild(3).gameObject;
+        fightEffect.SetActive(true);
+
         yield return new WaitForSeconds(0.5f);
 
         float to;
@@ -159,16 +207,17 @@ public class GameManage : MonoBehaviour
         {
             //win
             player.Fighting = false;
-            player.unit.healthBar.SetActive(false);
+            //player.unit.healthBar.SetActive(false);
+            StartCoroutine(UIPopper(player.unit.healthBar, false, 0.3f));
 
             enemyList.Remove(enemy);
 
             enemy.unit.col.enabled = false;
             enemy.animator.SetTrigger("Die");
-            enemy.unit.healthBar.SetActive(false);
+            StartCoroutine(UIPopper(enemy.unit.healthBar, false, 0.3f));
             SetAlpha(enemy.unit.rend, 0.5f);
 
-            player.transform.GetChild(3).gameObject.SetActive(false);
+            fightEffect.SetActive(false);
             yield return new WaitForSeconds(1f);
 
             if (enemy != null)
@@ -185,16 +234,16 @@ public class GameManage : MonoBehaviour
         {
             //lose
             enemy.Fighting = false;
-            enemy.unit.healthBar.SetActive(false);
+            StartCoroutine(UIPopper(enemy.unit.healthBar, false, 0.3f));
 
             playerList.Remove(player);
 
             player.unit.col.enabled = false;
             player.animator.SetTrigger("Die");
-            player.unit.healthBar.SetActive(false);
+            StartCoroutine(UIPopper(player.unit.healthBar, false, 0.3f));
             SetAlpha(player.unit.rend, 0.5f);
 
-            player.transform.GetChild(3).gameObject.SetActive(false);
+            fightEffect.SetActive(false);
             yield return new WaitForSeconds(1);
 
             if (player != null)
@@ -204,14 +253,23 @@ public class GameManage : MonoBehaviour
         }
 
         //yield return new WaitForSeconds(0.5f);
-        player.transform.GetChild(3).gameObject.SetActive(false);
+        fightEffect.SetActive(false);
 
         StartCoroutine(FightCoroutine(player, enemy));
     }
 
-    IEnumerator DestroyObj(GameObject obj)
+    public IEnumerator UIPopper(GameObject obj, bool active, float duration)
     {
-        yield return new WaitForSeconds(0.05f);
-        Destroy(obj);
+        if (active)
+        {
+            obj.SetActive(active);
+            obj.transform.DOScale(new Vector3(1, 1, 1), duration);
+        }
+        else
+        {
+            obj.transform.DOScale(Vector3.zero, duration);
+            yield return new WaitForSeconds(duration);
+            obj.SetActive(active);
+        }
     }
 }
