@@ -70,7 +70,8 @@ public class GameManage : MonoBehaviour
                     hasEnteredTraining = true;
                     currentPlayer.TrainingEnter(currentPlayer.animator);
 
-                    hapticCoroutine = StartCoroutine(HapticCoroutine());
+                    MMVibrationManager.Haptic(HapticTypes.LightImpact);
+                    //hapticCoroutine = StartCoroutine(HapticCoroutine());
                 }
 
                 if (Input.GetMouseButton(0))
@@ -80,7 +81,8 @@ public class GameManage : MonoBehaviour
                         hasEnteredTraining = true;
                         currentPlayer.TrainingEnter(currentPlayer.animator);
 
-                        hapticCoroutine = StartCoroutine(HapticCoroutine());
+                        MMVibrationManager.Haptic(HapticTypes.LightImpact);
+                        //hapticCoroutine = StartCoroutine(HapticCoroutine());
                     }
 
                     if (tempTime > 0)
@@ -91,6 +93,12 @@ public class GameManage : MonoBehaviour
                     {
                         tempTime = currentPlayer.trainingTime;
                         currentPlayer.TrainingStay(currentPlayer.unit, currentPlayer.animator);
+                        
+                        if(currentPlayer.unit.level < currentPlayer.maxLevel)
+                        {
+                            MMVibrationManager.Haptic(HapticTypes.LightImpact);
+                            Debug.Log("haptic");
+                        }
                     }
                 }
 
@@ -104,19 +112,19 @@ public class GameManage : MonoBehaviour
                     //StartCoroutine(SpawnPlayerCoroutine());
                     currentPlayer = null;
 
-                    StopCoroutine(hapticCoroutine);
-                    StopCoroutine(rateCoroutine);
-                    rate = 1f;
+                    //StopCoroutine(hapticCoroutine);
+                    //StopCoroutine(rateCoroutine);
+                    //rate = 1f;
                 }
             }
         }
 
-        if (!LevelManage.instance.gameOn && hapticCoroutine != null && rateCoroutine != null)
-        {
-            StopCoroutine(hapticCoroutine);
-            StopCoroutine(rateCoroutine);
-            rate = 1f;
-        }
+        //if (!LevelManage.instance.gameOn && hapticCoroutine != null && rateCoroutine != null)
+        //{
+        //    StopCoroutine(hapticCoroutine);
+        //    StopCoroutine(rateCoroutine);
+        //    rate = 1f;
+        //}
     }
 
     IEnumerator HapticCoroutine()

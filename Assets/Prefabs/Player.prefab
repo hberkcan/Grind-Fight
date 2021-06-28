@@ -2958,6 +2958,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8645689193297980818, guid: 2a06c9e0ad693104aae2434a32f554b5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201122102927471916, guid: 2a06c9e0ad693104aae2434a32f554b5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201417887344754008, guid: 2a06c9e0ad693104aae2434a32f554b5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201546956893507724, guid: 2a06c9e0ad693104aae2434a32f554b5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9208653242352506818, guid: 2a06c9e0ad693104aae2434a32f554b5, type: 3}
       propertyPath: CollisionModule.enabled
       value: 0
