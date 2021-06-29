@@ -42,6 +42,8 @@ public class LevelManage : MonoBehaviour
         levelText.text = "Level " + level.ToString();
 
         startUI.SetActive(true);
+
+        Zerosum.Analytics.LevelStarted(level);
     }
 
     void Update()
@@ -90,6 +92,7 @@ public class LevelManage : MonoBehaviour
             p.animator.SetTrigger("Celebrate");
         }
 
+        Zerosum.Analytics.LevelCompleted(level);
         level++;
         PlayerPrefs.SetInt("Level", level);
 
@@ -115,6 +118,8 @@ public class LevelManage : MonoBehaviour
             e.animator.ResetTrigger("isWalking");
             e.animator.SetTrigger("Celebrate");
         }
+
+        Zerosum.Analytics.LevelFailed(level);
 
         StartCoroutine(FailCoroutine());
     }
