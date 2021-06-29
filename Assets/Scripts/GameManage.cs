@@ -32,6 +32,8 @@ public class GameManage : MonoBehaviour
     Coroutine rateCoroutine;
     Coroutine hapticCoroutine;
 
+    [SerializeField] GameObject hand;
+
     private void Awake()
     {
         instance = this;
@@ -100,6 +102,8 @@ public class GameManage : MonoBehaviour
                             Debug.Log("haptic");
                         }
                     }
+
+                    //hand.SetActive(true);
                 }
 
                 if (Input.GetMouseButtonUp(0) && distance2 >= 16f)
@@ -115,6 +119,8 @@ public class GameManage : MonoBehaviour
                     //StopCoroutine(hapticCoroutine);
                     //StopCoroutine(rateCoroutine);
                     //rate = 1f;
+
+                    //hand.SetActive(false);
                 }
             }
         }
